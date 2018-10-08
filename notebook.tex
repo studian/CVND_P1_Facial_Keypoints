@@ -1,0 +1,843 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{1. Load and Visualize Data}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Facial Keypoint Detection}\label{facial-keypoint-detection}
+
+This project will be all about defining and training a convolutional
+neural network to perform facial keypoint detection, and using computer
+vision techniques to transform images of faces. The first step in any
+challenge like this will be to load and visualize the data you'll be
+working with.
+
+Let's take a look at some examples of images and corresponding facial
+keypoints.
+
+Facial keypoints (also called facial landmarks) are the small magenta
+dots shown on each of the faces in the image above. In each training and
+test image, there is a single face and \textbf{68 keypoints, with
+coordinates (x, y), for that face}. These keypoints mark important areas
+of the face: the eyes, corners of the mouth, the nose, etc. These
+keypoints are relevant for a variety of tasks, such as face filters,
+emotion recognition, pose recognition, and so on. Here they are,
+numbered, and you can see that specific ranges of points match different
+portions of the face.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{Load and Visualize Data}\label{load-and-visualize-data}
+
+The first step in working with any dataset is to become familiar with
+your data; you'll need to load in the images of faces and their
+keypoints and visualize them! This set of image data has been extracted
+from the \href{https://www.cs.tau.ac.il/~wolf/ytfaces/}{YouTube Faces
+Dataset}, which includes videos of people in YouTube videos. These
+videos have been fed through some processing steps and turned into sets
+of image frames containing one face and the associated keypoints.
+
+\paragraph{Training and Testing Data}\label{training-and-testing-data}
+
+This facial keypoints dataset consists of 5770 color images. All of
+these images are separated into either a training or a test set of data.
+
+\begin{itemize}
+\tightlist
+\item
+  3462 of these images are training images, for you to use as you create
+  a model to predict keypoints.
+\item
+  2308 are test images, which will be used to test the accuracy of your
+  model.
+\end{itemize}
+
+The information about the images and keypoints in this dataset are
+summarized in CSV files, which we can read in using \texttt{pandas}.
+Let's read the training CSV and get the annotations in an (N, 2) array
+where N is the number of keypoints and 2 is the dimension of the
+keypoint coordinates (x, y).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} import the required libraries}
+        \PY{k+kn}{import} \PY{n+nn}{glob}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k}{as} \PY{n+nn}{mpimg}
+        
+        \PY{k+kn}{import} \PY{n+nn}{cv2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{key\PYZus{}pts\PYZus{}frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/training\PYZus{}frames\PYZus{}keypoints.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{image\PYZus{}name} \PY{o}{=} \PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}
+        \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image name: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{image\PYZus{}name}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Landmarks shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{key\PYZus{}pts}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First 4 key pts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{key\PYZus{}pts}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Image name:  Luis\_Fonsi\_21.jpg
+Landmarks shape:  (68, 2)
+First 4 key pts: [[ 45.  98.]
+ [ 47. 106.]
+ [ 49. 110.]
+ [ 53. 119.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} print out some stats about the data}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of images: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of images:  3462
+
+    \end{Verbatim}
+
+    \subsection{Look at some images}\label{look-at-some-images}
+
+Below, is a function \texttt{show\_keypoints} that takes in an image and
+keypoints and displays them. As you look at this data, \textbf{note that
+these images are not all of the same size}, and neither are the faces!
+To eventually train a neural network on these images, we'll need to
+standardize their shape.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{show\PYZus{}keypoints}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{key\PYZus{}pts}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Show image with keypoints\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{key\PYZus{}pts}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{key\PYZus{}pts}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Display a few different types of images by changing the index n}
+        
+        \PY{c+c1}{\PYZsh{} select an image by index in our data frame}
+        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{image\PYZus{}name} \PY{o}{=} \PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}
+        \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{show\PYZus{}keypoints}\PY{p}{(}\PY{n}{mpimg}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/training/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{image\PYZus{}name}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{key\PYZus{}pts}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Dataset class and
+Transformations}\label{dataset-class-and-transformations}
+
+To prepare our data for training, we'll be using PyTorch's Dataset
+class. Much of this this code is a modified version of what can be found
+in the
+\href{http://pytorch.org/tutorials/beginner/data_loading_tutorial.html}{PyTorch
+data loading tutorial}.
+
+\paragraph{Dataset class}\label{dataset-class}
+
+\texttt{torch.utils.data.Dataset} is an abstract class representing a
+dataset. This class will allow us to load batches of image/keypoint
+data, and uniformly apply transformations to our data, such as rescaling
+and normalizing images for training a neural network.
+
+Your custom dataset should inherit \texttt{Dataset} and override the
+following methods:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\_\_len\_\_} so that \texttt{len(dataset)} returns the size of
+  the dataset.
+\item
+  \texttt{\_\_getitem\_\_} to support the indexing such that
+  \texttt{dataset{[}i{]}} can be used to get the i-th sample of
+  image/keypoint data.
+\end{itemize}
+
+Let's create a dataset class for our face keypoints dataset. We will
+read the CSV file in \texttt{\_\_init\_\_} but leave the reading of
+images to \texttt{\_\_getitem\_\_}. This is memory efficient because all
+the images are not stored in the memory at once but read as required.
+
+A sample of our dataset will be a dictionary
+\texttt{\{\textquotesingle{}image\textquotesingle{}:\ image,\ \textquotesingle{}keypoints\textquotesingle{}:\ key\_pts\}}.
+Our dataset will take an optional argument \texttt{transform} so that
+any required processing can be applied on the sample. We will see the
+usefulness of \texttt{transform} in the next section.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{Dataset}\PY{p}{,} \PY{n}{DataLoader}
+        
+        \PY{k}{class} \PY{n+nc}{FacialKeypointsDataset}\PY{p}{(}\PY{n}{Dataset}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Face Landmarks dataset.\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{csv\PYZus{}file}\PY{p}{,} \PY{n}{root\PYZus{}dir}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Args:}
+        \PY{l+s+sd}{            csv\PYZus{}file (string): Path to the csv file with annotations.}
+        \PY{l+s+sd}{            root\PYZus{}dir (string): Directory with all the images.}
+        \PY{l+s+sd}{            transform (callable, optional): Optional transform to be applied}
+        \PY{l+s+sd}{                on a sample.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key\PYZus{}pts\PYZus{}frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{csv\PYZus{}file}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{root\PYZus{}dir} \PY{o}{=} \PY{n}{root\PYZus{}dir}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform} \PY{o}{=} \PY{n}{transform}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{)}\PY{p}{:}
+                \PY{n}{image\PYZus{}name} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{root\PYZus{}dir}\PY{p}{,}
+                                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                
+                \PY{n}{image} \PY{o}{=} \PY{n}{mpimg}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{image\PYZus{}name}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} if image has an alpha color channel, get rid of it}
+                \PY{k}{if}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{image} \PY{o}{=} \PY{n}{image}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}
+                
+                \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key\PYZus{}pts\PYZus{}frame}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{idx}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{as\PYZus{}matrix}\PY{p}{(}\PY{p}{)}
+                \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{sample} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{image}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{key\PYZus{}pts}\PY{p}{\PYZcb{}}
+        
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform}\PY{p}{:}
+                    \PY{n}{sample} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{sample}\PY{p}{)}
+        
+                \PY{k}{return} \PY{n}{sample}
+\end{Verbatim}
+
+
+    Now that we've defined this class, let's instantiate the dataset and
+display some images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Construct the dataset}
+        \PY{n}{face\PYZus{}dataset} \PY{o}{=} \PY{n}{FacialKeypointsDataset}\PY{p}{(}\PY{n}{csv\PYZus{}file}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/training\PYZus{}frames\PYZus{}keypoints.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                              \PY{n}{root\PYZus{}dir}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/training/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} print some stats about the dataset}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of dataset: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{face\PYZus{}dataset}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Length of dataset:  3462
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Display a few of the images from the dataset}
+        \PY{n}{num\PYZus{}to\PYZus{}display} \PY{o}{=} \PY{l+m+mi}{3}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}to\PYZus{}display}\PY{p}{)}\PY{p}{:}
+            
+            \PY{c+c1}{\PYZsh{} define the size of images}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} randomly select a sample}
+            \PY{n}{rand\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{face\PYZus{}dataset}\PY{p}{)}\PY{p}{)}
+            \PY{n}{sample} \PY{o}{=} \PY{n}{face\PYZus{}dataset}\PY{p}{[}\PY{n}{rand\PYZus{}i}\PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{} print the shape of the image and keypoints}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        
+            \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{num\PYZus{}to\PYZus{}display}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample \PYZsh{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Using the same display function, defined earlier}
+            \PY{n}{show\PYZus{}keypoints}\PY{p}{(}\PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 (164, 117, 3) (68, 2)
+1 (230, 206, 3) (68, 2)
+2 (299, 275, 3) (68, 2)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Transforms}\label{transforms}
+
+Now, the images above are not of the same size, and neural networks
+often expect images that are standardized; a fixed size, with a
+normalized range for color ranges and coordinates, and (for PyTorch)
+converted from numpy lists and arrays to Tensors.
+
+Therefore, we will need to write some pre-processing code. Let's create
+four transforms:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{Normalize}: to convert a color image to grayscale values with
+  a range of {[}0,1{]} and normalize the keypoints to be in a range of
+  about {[}-1, 1{]}
+\item
+  \texttt{Rescale}: to rescale an image to a desired size.
+\item
+  \texttt{RandomCrop}: to crop an image randomly.
+\item
+  \texttt{ToTensor}: to convert numpy images to torch images.
+\end{itemize}
+
+We will write them as callable classes instead of simple functions so
+that parameters of the transform need not be passed everytime it's
+called. For this, we just need to implement \texttt{\_\_call\_\_} method
+and (if we require parameters to be passed in), the
+\texttt{\_\_init\_\_} method. We can then use a transform like this:
+
+\begin{verbatim}
+tx = Transform(params)
+transformed_sample = tx(sample)
+\end{verbatim}
+
+Observe below how these transforms are generally applied to both the
+image and its keypoints.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{from} \PY{n+nn}{torchvision} \PY{k}{import} \PY{n}{transforms}\PY{p}{,} \PY{n}{utils}
+        \PY{c+c1}{\PYZsh{} tranforms}
+        
+        \PY{k}{class} \PY{n+nc}{Normalize}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Convert a color image to grayscale and normalize the color range to [0,1].\PYZdq{}\PYZdq{}\PYZdq{}}        
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{sample}\PY{p}{)}\PY{p}{:}
+                \PY{n}{image}\PY{p}{,} \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+                \PY{n}{image\PYZus{}copy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{image}\PY{p}{)}
+                \PY{n}{key\PYZus{}pts\PYZus{}copy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{key\PYZus{}pts}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} convert image to grayscale}
+                \PY{n}{image\PYZus{}copy} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}RGB2GRAY}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} scale color range from [0, 255] to [0, 1]}
+                \PY{n}{image\PYZus{}copy}\PY{o}{=}  \PY{n}{image\PYZus{}copy}\PY{o}{/}\PY{l+m+mf}{255.0}
+                
+                \PY{c+c1}{\PYZsh{} scale keypoints to be centered around 0 with a range of [\PYZhy{}1, 1]}
+                \PY{c+c1}{\PYZsh{} mean = 100, sqrt = 50, so, pts should be (pts \PYZhy{} 100)/50}
+                \PY{n}{key\PYZus{}pts\PYZus{}copy} \PY{o}{=} \PY{p}{(}\PY{n}{key\PYZus{}pts\PYZus{}copy} \PY{o}{\PYZhy{}} \PY{l+m+mi}{100}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{50.0}
+        
+        
+                \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{image\PYZus{}copy}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{key\PYZus{}pts\PYZus{}copy}\PY{p}{\PYZcb{}}
+        
+        
+        \PY{k}{class} \PY{n+nc}{Rescale}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Rescale the image in a sample to a given size.}
+        
+        \PY{l+s+sd}{    Args:}
+        \PY{l+s+sd}{        output\PYZus{}size (tuple or int): Desired output size. If tuple, output is}
+        \PY{l+s+sd}{            matched to output\PYZus{}size. If int, smaller of image edges is matched}
+        \PY{l+s+sd}{            to output\PYZus{}size keeping aspect ratio the same.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{output\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                \PY{k}{assert} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{output\PYZus{}size}\PY{p}{,} \PY{p}{(}\PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{=} \PY{n}{output\PYZus{}size}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{sample}\PY{p}{)}\PY{p}{:}
+                \PY{n}{image}\PY{p}{,} \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+                \PY{n}{h}\PY{p}{,} \PY{n}{w} \PY{o}{=} \PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+                \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size}\PY{p}{,} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{h} \PY{o}{\PYZgt{}} \PY{n}{w}\PY{p}{:}
+                        \PY{n}{new\PYZus{}h}\PY{p}{,} \PY{n}{new\PYZus{}w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{*} \PY{n}{h} \PY{o}{/} \PY{n}{w}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n}{new\PYZus{}h}\PY{p}{,} \PY{n}{new\PYZus{}w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{*} \PY{n}{w} \PY{o}{/} \PY{n}{h}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{new\PYZus{}h}\PY{p}{,} \PY{n}{new\PYZus{}w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size}
+        
+                \PY{n}{new\PYZus{}h}\PY{p}{,} \PY{n}{new\PYZus{}w} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{new\PYZus{}h}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{new\PYZus{}w}\PY{p}{)}
+        
+                \PY{n}{img} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{image}\PY{p}{,} \PY{p}{(}\PY{n}{new\PYZus{}w}\PY{p}{,} \PY{n}{new\PYZus{}h}\PY{p}{)}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} scale the pts, too}
+                \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts} \PY{o}{*} \PY{p}{[}\PY{n}{new\PYZus{}w} \PY{o}{/} \PY{n}{w}\PY{p}{,} \PY{n}{new\PYZus{}h} \PY{o}{/} \PY{n}{h}\PY{p}{]}
+        
+                \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{img}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{key\PYZus{}pts}\PY{p}{\PYZcb{}}
+        
+        
+        \PY{k}{class} \PY{n+nc}{RandomCrop}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Crop randomly the image in a sample.}
+        
+        \PY{l+s+sd}{    Args:}
+        \PY{l+s+sd}{        output\PYZus{}size (tuple or int): Desired output size. If int, square crop}
+        \PY{l+s+sd}{            is made.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{output\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                \PY{k}{assert} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{output\PYZus{}size}\PY{p}{,} \PY{p}{(}\PY{n+nb}{int}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{output\PYZus{}size}\PY{p}{,} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{=} \PY{p}{(}\PY{n}{output\PYZus{}size}\PY{p}{,} \PY{n}{output\PYZus{}size}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{output\PYZus{}size}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size} \PY{o}{=} \PY{n}{output\PYZus{}size}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{sample}\PY{p}{)}\PY{p}{:}
+                \PY{n}{image}\PY{p}{,} \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+                \PY{n}{h}\PY{p}{,} \PY{n}{w} \PY{o}{=} \PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+                \PY{n}{new\PYZus{}h}\PY{p}{,} \PY{n}{new\PYZus{}w} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output\PYZus{}size}
+        
+                \PY{n}{top} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{h} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}h}\PY{p}{)}
+                \PY{n}{left} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{w} \PY{o}{\PYZhy{}} \PY{n}{new\PYZus{}w}\PY{p}{)}
+        
+                \PY{n}{image} \PY{o}{=} \PY{n}{image}\PY{p}{[}\PY{n}{top}\PY{p}{:} \PY{n}{top} \PY{o}{+} \PY{n}{new\PYZus{}h}\PY{p}{,}
+                              \PY{n}{left}\PY{p}{:} \PY{n}{left} \PY{o}{+} \PY{n}{new\PYZus{}w}\PY{p}{]}
+        
+                \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{key\PYZus{}pts} \PY{o}{\PYZhy{}} \PY{p}{[}\PY{n}{left}\PY{p}{,} \PY{n}{top}\PY{p}{]}
+        
+                \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{image}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{key\PYZus{}pts}\PY{p}{\PYZcb{}}
+        
+        
+        \PY{k}{class} \PY{n+nc}{ToTensor}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Convert ndarrays in sample to Tensors.\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{sample}\PY{p}{)}\PY{p}{:}
+                \PY{n}{image}\PY{p}{,} \PY{n}{key\PYZus{}pts} \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 
+                \PY{c+c1}{\PYZsh{} if image has no grayscale color channel, add one}
+                \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} add that third color dim}
+                    \PY{n}{image} \PY{o}{=} \PY{n}{image}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{image}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                    
+                \PY{c+c1}{\PYZsh{} swap color axis because}
+                \PY{c+c1}{\PYZsh{} numpy image: H x W x C}
+                \PY{c+c1}{\PYZsh{} torch image: C X H X W}
+                \PY{n}{image} \PY{o}{=} \PY{n}{image}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                
+                \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{image}\PY{p}{)}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{key\PYZus{}pts}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \subsection{Test out the transforms}\label{test-out-the-transforms}
+
+Let's test these transforms out to make sure they behave as expected. As
+you look at each transform, note that, in this case, \textbf{order does
+matter}. For example, you cannot crop a image using a value smaller than
+the original image (and the orginal images vary in size!), but, if you
+first rescale the original image, you can then crop it to any size
+smaller than the rescaled size.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} test out some of these transforms}
+         \PY{n}{rescale} \PY{o}{=} \PY{n}{Rescale}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{crop} \PY{o}{=} \PY{n}{RandomCrop}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{composed} \PY{o}{=} \PY{n}{transforms}\PY{o}{.}\PY{n}{Compose}\PY{p}{(}\PY{p}{[}\PY{n}{Rescale}\PY{p}{(}\PY{l+m+mi}{250}\PY{p}{)}\PY{p}{,}
+                                        \PY{n}{RandomCrop}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} apply the transforms to a sample image}
+         \PY{n}{test\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{sample} \PY{o}{=} \PY{n}{face\PYZus{}dataset}\PY{p}{[}\PY{n}{test\PYZus{}num}\PY{p}{]}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{tx} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{n}{rescale}\PY{p}{,} \PY{n}{crop}\PY{p}{,} \PY{n}{composed}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{transformed\PYZus{}sample} \PY{o}{=} \PY{n}{tx}\PY{p}{(}\PY{n}{sample}\PY{p}{)}
+         
+             \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{tx}\PY{p}{)}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+             \PY{n}{show\PYZus{}keypoints}\PY{p}{(}\PY{n}{transformed\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{transformed\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Create the transformed
+dataset}\label{create-the-transformed-dataset}
+
+Apply the transforms in order to get grayscale images of the same shape.
+Verify that your transform works by printing out the shape of the
+resulting data (printing out a few examples should show you a consistent
+tensor size).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} define the data tranform}
+         \PY{c+c1}{\PYZsh{} order matters! i.e. rescaling should come before a smaller crop}
+         \PY{n}{data\PYZus{}transform} \PY{o}{=} \PY{n}{transforms}\PY{o}{.}\PY{n}{Compose}\PY{p}{(}\PY{p}{[}\PY{n}{Rescale}\PY{p}{(}\PY{l+m+mi}{250}\PY{p}{)}\PY{p}{,}
+                                              \PY{n}{RandomCrop}\PY{p}{(}\PY{l+m+mi}{224}\PY{p}{)}\PY{p}{,}
+                                              \PY{n}{Normalize}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                              \PY{n}{ToTensor}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create the transformed dataset}
+         \PY{n}{transformed\PYZus{}dataset} \PY{o}{=} \PY{n}{FacialKeypointsDataset}\PY{p}{(}\PY{n}{csv\PYZus{}file}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/training\PYZus{}frames\PYZus{}keypoints.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                      \PY{n}{root\PYZus{}dir}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/training/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                      \PY{n}{transform}\PY{o}{=}\PY{n}{data\PYZus{}transform}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} print some stats about the transformed data}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of images: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{transformed\PYZus{}dataset}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} make sure the sample tensors are the expected size}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sample} \PY{o}{=} \PY{n}{transformed\PYZus{}dataset}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keypoints}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of images:  3462
+0 torch.Size([1, 224, 224]) torch.Size([68, 2])
+1 torch.Size([1, 224, 224]) torch.Size([68, 2])
+2 torch.Size([1, 224, 224]) torch.Size([68, 2])
+3 torch.Size([1, 224, 224]) torch.Size([68, 2])
+4 torch.Size([1, 224, 224]) torch.Size([68, 2])
+
+    \end{Verbatim}
+
+    \subsection{Data Iteration and
+Batching}\label{data-iteration-and-batching}
+
+Right now, we are iterating over this data using a \texttt{for} loop,
+but we are missing out on a lot of PyTorch's dataset capabilities,
+specifically the abilities to:
+
+\begin{itemize}
+\tightlist
+\item
+  Batch the data
+\item
+  Shuffle the data
+\item
+  Load the data in parallel using \texttt{multiprocessing} workers.
+\end{itemize}
+
+\texttt{torch.utils.data.DataLoader} is an iterator which provides all
+these features, and we'll see this in use in the \emph{next} notebook,
+Notebook 2, when we load data in batches to train a neural network!
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{Ready to Train!}\label{ready-to-train}
+
+Now that you've seen how to load and transform our data, you're ready to
+build a neural network to train on this data.
+
+In the next notebook, you'll be tasked with creating a CNN for facial
+keypoint detection.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
